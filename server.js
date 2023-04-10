@@ -12,11 +12,15 @@ app.use(
   })
 )
 
+
 app.get('/', (req, res) => {
     res.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-app.get('/users', db.getUsers)
+
+app.get('/api/users', db.getUsers);
+app.post('/api/register', db.registerUser);
+
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`)

@@ -15,15 +15,48 @@ const pool = new Pool({
     port: PORT,
 })
 
+
 const getUsers = (req, res) => {
-    pool.query('SELECT * FROM users ORDER BY id ASC', (err, results) => {
-      if (err) {
-        throw err
+    pool.query('SELECT * FROM users ORDER BY id ASC', (error, results) => {
+      if (error) {
+        throw error;
       }
       res.status(200).json(results.rows)
     })
-  }
+}
 
-  module.exports = {
+
+const registerUser = (req, res) => {
+    const { username, email, password } = req.body;
+    pool.query(
+        'SELECT * FROM users WHERE email = $1',
+        [email],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            if (results.rows.length > 0) {
+                return res.status(409).send('User already exists');
+            }
+            pool.query(
+                'INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',
+                [username, email, password],
+                (error, results) => {
+                    if (error) {
+                        throw error;
+                    }
+                    res.status(201).send(`User added with username: ${username}`);
+                }
+            );
+        }
+    )    
+};
+  
+
+
+module.exports = {
     getUsers,
-  }
+    registerUser,
+}
+
+  
