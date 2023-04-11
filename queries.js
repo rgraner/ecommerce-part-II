@@ -25,6 +25,36 @@ const getUsers = (req, res) => {
     })
 }
 
+const getUserByEmail = (email) => {
+    return pool.query('SELECT * FROM users WHERE email = $1', [email])
+    .then((res) => {
+        if (res.rows.length > 0) {
+            return res.rows[0];
+        } else {
+            return null;
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+        return null;
+    });
+};
+
+const getUserById = (id) => {
+    return pool.query('SELECT * FROM users WHERE id = $1,', [id])
+    .then((res) => {
+        if (res.rows.length > 0) {
+            return res.rows[0];
+        } else {
+            return null;
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+        return null;
+    });
+};
+
 
 const registerUser = (req, res) => {
     const { username, email, password } = req.body;
@@ -53,10 +83,11 @@ const registerUser = (req, res) => {
 };
   
 
-
 module.exports = {
     getUsers,
     registerUser,
+    getUserByEmail,
+    getUserById
 }
 
   
