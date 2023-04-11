@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
     res.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
-
+// users endpoints
 app.get('/api/users', db.getUsers);
 app.post('/api/register', db.registerUser);
 
@@ -40,6 +40,13 @@ app.get('/api/logout', (req, res) => {
 app.get('/api/login-failure', (req, res) => {
   res.status(401).json({ success: false, message: 'incorrect email or password.'});
 });
+
+// products endpoints
+app.get('/api/products', db.getAllProducts);
+app.get('/api/products/:id', db.getProductById);
+app.post('/api/products', db.createProduct);
+app.put('/api/products/:id', db.updateProduct);
+app.delete('/api/products/:id', db.deleteProduct)
 
 
 app.listen(port, () => {
