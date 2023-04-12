@@ -5,7 +5,8 @@ const app = express();
 const port = 3000;
 
 const passport = require('./passport');
-const db = require('./queries');
+const dbProducts = require('./db/products');
+const dbUsers = require('./db/users');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -23,8 +24,11 @@ app.get('/', (req, res) => {
 })
 
 // users endpoints
-app.get('/api/users', db.getUsers);
-app.post('/api/register', db.registerUser);
+app.get('/api/users', dbUsers.getAllUsers);
+app.get('/api/users/:id', dbUsers.getUserById);
+app.post('/api/create-user', dbUsers.createUser);
+app.put('/api/users/:id', dbUsers.updateUser);
+app.delete('/api/users/:id', dbUsers.deleteUser);
 
 app.post('/api/login', 
 passport.authenticate('local', { failureRedirect: '/api/login-failure'}),
@@ -42,11 +46,11 @@ app.get('/api/login-failure', (req, res) => {
 });
 
 // products endpoints
-app.get('/api/products', db.getAllProducts);
-app.get('/api/products/:id', db.getProductById);
-app.post('/api/products', db.createProduct);
-app.put('/api/products/:id', db.updateProduct);
-app.delete('/api/products/:id', db.deleteProduct)
+app.get('/api/products', dbProducts.getAllProducts);
+app.get('/api/products/:id', dbProducts.getProductById);
+app.post('/api/products', dbProducts.createProduct);
+app.put('/api/products/:id', dbProducts.updateProduct);
+app.delete('/api/products/:id', dbProducts.deleteProduct)
 
 
 app.listen(port, () => {
