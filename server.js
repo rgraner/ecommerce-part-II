@@ -7,6 +7,7 @@ const port = 3000;
 const passport = require('./passport');
 const dbProducts = require('./db/products');
 const dbUsers = require('./db/users');
+const dbCart = require('./db/cart');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -50,7 +51,13 @@ app.get('/api/products', dbProducts.getAllProducts);
 app.get('/api/products/:id', dbProducts.getProductById);
 app.post('/api/products', dbProducts.createProduct);
 app.put('/api/products/:id', dbProducts.updateProduct);
-app.delete('/api/products/:id', dbProducts.deleteProduct)
+app.delete('/api/products/:id', dbProducts.deleteProduct);
+
+// cart endpoints
+app.get('/api/users/:userId/cart/', dbCart.getCartItems);
+app.post('/api/users/:userId/cart/', dbCart.createCartItem);
+app.put('/api/users/:userId/cart/:itemId', dbCart.updateCartItem);
+app.delete('/api/users/:userId/cart/:itemId', dbCart.deleteCartItem);
 
 
 app.listen(port, () => {
