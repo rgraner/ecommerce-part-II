@@ -59,6 +59,9 @@ app.post('/api/users/:userId/cart/', dbCart.createCartItem);
 app.put('/api/users/:userId/cart/:itemId', dbCart.updateCartItem);
 app.delete('/api/users/:userId/cart/:itemId', dbCart.deleteCartItem);
 
+// Checkout
+app.post('/api/users/:userId/checkout', dbCart.checkout);
+
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`)
