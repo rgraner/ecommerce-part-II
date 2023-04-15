@@ -8,6 +8,7 @@ const passport = require('./passport');
 const dbProducts = require('./db/products');
 const dbUsers = require('./db/users');
 const dbCart = require('./db/cart');
+const dbOrders = require('./db/orders');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -62,6 +63,10 @@ app.delete('/api/users/:userId/cart/:itemId', dbCart.deleteCartItem);
 // Checkout
 app.post('/api/users/:userId/checkout', dbCart.checkout);
 
+// orders endpoints
+app.get('/api/orders', dbOrders.getAllOrders);
+app.get('/api/orders/:orderId', dbOrders.getOrderById);
+app.delete('/api/orders/:orderId', dbOrders.deleteOrder);
 
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`)
