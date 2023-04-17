@@ -4,6 +4,9 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = 3000;
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
+
 const passport = require('./passport');
 const dbProducts = require('./db/products');
 const dbUsers = require('./db/users');
@@ -20,13 +23,49 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
 app.get('/', (req, res) => {
     res.json({ info: 'Node.js, Express, and Postgres API' })
 })
 
 // users endpoints
+// orders endpoints
+/**
+ * @swagger
+ * /api/users:
+ *   get:
+ *     summary: Get a list of all users
+ *     responses:
+ *       200:
+ *         description: OK
+ *       500:
+ *         description: Internal Server Error
+ */
 app.get('/api/users', dbUsers.getAllUsers);
+
+/**
+ * @swagger
+ * /api/users/{id}:
+ *   get:
+ *     summary: Get a user by ID
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID of the user to retrieve
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: OK
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal Server Error
+ */
 app.get('/api/users/:id', dbUsers.getUserById);
 app.post('/api/create-user', dbUsers.createUser);
 app.put('/api/users/:id', dbUsers.updateUser);
@@ -48,6 +87,18 @@ app.get('/api/login-failure', (req, res) => {
 });
 
 // products endpoints
+// orders endpoints
+/**
+ * @swagger
+ * /api/products:
+ *   get:
+ *     summary: Get a list of all products
+ *     responses:
+ *       200:
+ *         description: OK
+ *       500:
+ *         description: Internal Server Error
+ */
 app.get('/api/products', dbProducts.getAllProducts);
 app.get('/api/products/:id', dbProducts.getProductById);
 app.post('/api/products', dbProducts.createProduct);
@@ -64,10 +115,29 @@ app.delete('/api/users/:userId/cart/:itemId', dbCart.deleteCartItem);
 app.post('/api/users/:userId/checkout', dbCart.checkout);
 
 // orders endpoints
+/**
+ * @swagger
+ * /api/orders:
+ *   get:
+ *     summary: Get a list of orders
+ *     responses:
+ *       200:
+ *         description: OK
+ *       500:
+ *         description: Internal Server Error
+ */
 app.get('/api/orders', dbOrders.getAllOrders);
 app.get('/api/orders/:orderId', dbOrders.getOrderById);
 app.delete('/api/orders/:orderId', dbOrders.deleteOrder);
 
+// Documentation
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 app.listen(port, () => {
     console.log(`Server listening at http://localhost:${port}`)
 })
+
+
+
+
+
