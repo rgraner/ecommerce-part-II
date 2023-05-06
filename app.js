@@ -5,13 +5,13 @@ const app = express();
 const port = 3000;
 
 const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./swagger');
+const swaggerSpec = require('./loaders/swagger');
 
-const passport = require('./passport');
-const dbProducts = require('./db/products');
-const dbUsers = require('./db/users');
-const dbCart = require('./db/cart');
-const dbOrders = require('./db/orders');
+const passport = require('./loaders/passport');
+const dbProducts = require('./controllers/products');
+const dbUsers = require('./controllers/users');
+const dbCart = require('./controllers/cart');
+const dbOrders = require('./controllers/orders');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

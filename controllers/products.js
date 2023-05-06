@@ -1,4 +1,4 @@
-const pool = require('./pool')
+const pool = require('../models/pool')
 
 
 const getAllProducts = (req, res) => {

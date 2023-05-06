@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt')
-const pool = require('./pool')
+const pool = require('../models/pool')
 
 
 // Get all users

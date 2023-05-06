@@ -1,4 +1,4 @@
-const pool = require('./pool')
+const pool = require('../models/pool')
 
 // Get all orders
 const getAllOrders = async (req, res) => {
