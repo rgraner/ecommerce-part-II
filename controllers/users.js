@@ -12,40 +12,6 @@ const getAllUsers = (req, res) => {
     })
 }
 
-// Create a new user
-// const createUser = (req, res) => {
-//     const { username, email, password } = req.body;
-
-//     pool.query(
-//         'SELECT * FROM users WHERE email = $1',
-//         [email],
-//         async (error, results) => {
-//             if (error) {
-//                 throw error;
-//             }
-//             if (results.rows.length > 0) {
-//                 return res.status(409).send('User already exists');
-//             }
-//             try {
-//                 const hashedPassword = await bcrypt.hash(password, 10);
-//                 pool.query(
-//                     'INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',
-//                     [username, email, hashedPassword],
-//                     (error, results) => {
-//                         if (error) {
-//                             throw error;
-//                         }
-//                         res.status(201).send(`User added with username: ${username}`);
-//                     }
-//                 );
-//             } catch (err) {
-//                 console.log(err);
-//                 res.status(500).send('Internal server error');
-//             }
-//         }
-//     );
-// };
-
 const createUser = async (req, res) => {
     try {
       const { username, email, password } = req.body;
@@ -121,7 +87,6 @@ const deleteUser = (req, res) => {
       res.status(200).send(`User deleted with ID: ${id}`);
     });
   };
-  
   
 
 module.exports = {
