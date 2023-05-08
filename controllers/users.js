@@ -15,11 +15,19 @@ const getAllUsers = (req, res) => {
 const createUser = async (req, res) => {
     try {
       const { username, email, password } = req.body;
+
+      // Check if the username or email already exists in the database
+      const queryText = 'SELECT * FROM users WHERE username = $1 OR email = $2';
+      const{ rows } = await pool.query(queryText, [username, email]);
+      if (rows.length > 0) {
+        return res.status(400).json({ message: 'Username or email already exists' });
+      }
+
+      // Hash the password and create the user
       const hashedPassword = await bcrypt.hash(password, 10);
-  
-      const queryText = 'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *';
-      const { rows } = await pool.query(queryText, [username, email, hashedPassword]);
-      const user = rows[0];
+      const insertText = 'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *';
+      const result = await pool.query(insertText, [username, email, hashedPassword]);
+      const user = result.rows[0];
   
       res.status(201).json({ message: 'User created successfully', user });
     } catch (error) {
@@ -27,6 +35,7 @@ const createUser = async (req, res) => {
       res.status(500).json({ message: 'Internal server error' });
     }
 };
+
 
 const getUserById = (req, res) =>{
     const id = parseInt(req.params.id);

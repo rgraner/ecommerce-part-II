@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 8000;
+const port = 3000;
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./loaders/swagger');

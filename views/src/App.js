@@ -1,9 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Home';
+import Home from './components/Home.js';
 import Users from './components/Users.js';
-import Products from './components/Products';
+import Products from './components/Products.js';
 // import Orders from './components/Orders';
+import Register from './components/Register.js';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/products" element={<Products />} />
         {/* <Route path="/orders" element={<Orders />} /> */}
+        <Route path="/register" element={<Register />} />
       </Routes>
     </Router>
   );
