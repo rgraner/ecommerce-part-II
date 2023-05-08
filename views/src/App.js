@@ -1,37 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/Home';
+import Users from './components/Users.js';
+import Products from './components/Products';
+// import Orders from './components/Orders';
 
 function App() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    async function fetchUsers() {
-      try {
-        const response = await fetch('/api/users');
-        if (!response.ok) {
-          throw new Error(response.statusText);
-        }
-        const users = await response.json();
-        setUsers(users);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-    fetchUsers();
-  }, []);
-
   return (
-    <div>
-      <h1>Users</h1>
-      <ul>
-        {users.map(user => (
-          <li key={user.id}>
-            {user.username} ({user.email})
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Router>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/products" element={<Products />} />
+        {/* <Route path="/orders" element={<Orders />} /> */}
+      </Routes>
+    </Router>
   );
 }
 
 export default App;
-
