@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+const port = 8000;
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./loaders/swagger');
@@ -13,6 +13,8 @@ const usersRoute = require('./routes/users');
 const productsRoute = require('./routes/products');
 const ordersRoute = require('./routes/orders');
 const cartRoute = require('./routes/cart');
+
+app.set('maxHttpHeaderSize', 65536); // set max header size to 64KB
 
 // Middleware
 app.use(bodyParser.json());
@@ -34,22 +36,6 @@ app.use('/api/users', usersRoute);
 app.use('/api/products', productsRoute);
 app.use('/api/orders', ordersRoute);
 app.use('/api/users/:userId/cart', cartRoute);
-
-
-// app.post('/api/login', 
-// passport.authenticate('local', { failureRedirect: '/api/login-failure'}),
-// (req, res) => {
-//   res.json({ success:true, user: req.user });
-// });
-
-// app.get('/api/logout', (req, res) => {
-//   req.logout();
-//   res.json({ success:true });
-// });
-
-// app.get('/api/login-failure', (req, res) => {
-//   res.status(401).json({ success: false, message: 'incorrect email or password.'});
-// });
 
 // Checkout
 app.post('/api/users/:userId/checkout', cartRoute.checkout);
