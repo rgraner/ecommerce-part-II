@@ -13,8 +13,8 @@ const usersRoute = require('./routes/users');
 const productsRoute = require('./routes/products');
 const ordersRoute = require('./routes/orders');
 const cartRoute = require('./routes/cart');
+const authRoute = require('./routes/auth');
 
-app.set('maxHttpHeaderSize', 65536); // set max header size to 64KB
 
 // Middleware
 app.use(bodyParser.json());
@@ -33,6 +33,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/users', usersRoute);
+app.use('/api/auth', authRoute);
 app.use('/api/products', productsRoute);
 app.use('/api/orders', ordersRoute);
 app.use('/api/users/:userId/cart', cartRoute);

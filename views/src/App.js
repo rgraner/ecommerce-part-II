@@ -5,6 +5,7 @@ import Users from './components/Users.js';
 import Products from './components/Products.js';
 // import Orders from './components/Orders';
 import Register from './components/Register.js';
+import Login from './components/Login.js';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         {/* <Route path="/orders" element={<Orders />} /> */}
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
