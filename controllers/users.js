@@ -1,5 +1,6 @@
-const bcrypt = require('bcrypt')
+// const bcrypt = require('bcrypt')
 const pool = require('../models/pool')
+const { hashPassword } = require('../utils/hashPassword');
 
 
 // Get all users
@@ -24,7 +25,8 @@ const createUser = async (req, res) => {
       }
 
       // Hash the password and create the user
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await hashPassword(password);
+      // const hashedPassword = await bcrypt.hash(password, 10);
       const insertText = 'INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *';
       const result = await pool.query(insertText, [username, email, hashedPassword]);
       const user = result.rows[0];
