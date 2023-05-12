@@ -22,7 +22,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   secret: 'secret',
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { secure: false }
 }));
 app.use(passport.initialize());
 app.use(passport.session());
