@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home.js';
 import Users from './components/Users.js';
@@ -10,6 +10,13 @@ import Navbar from './components/Navbar.js';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   return (
     <Router>

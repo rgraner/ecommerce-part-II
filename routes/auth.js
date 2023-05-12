@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const router = express.Router();
+const jwt = require('jsonwebtoken');
 
 
 router.post('/login', (req, res, next) => {
@@ -10,12 +11,15 @@ router.post('/login', (req, res, next) => {
 
     req.login(user, (err) => {
       if (err) { return next(err); }
+      const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET_KEY);
+      res.cookie('token', token);
       return res.status(200).json({ message: 'Login succesfull', user: req.user });
     });
   })(req, res, next);
 });
 
 router.get('/logout', (req, res) => {
+  res.clearCookie('token');
   req.logout();
   req.session.destroy();
   res.redirect('/');
