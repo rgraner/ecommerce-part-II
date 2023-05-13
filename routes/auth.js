@@ -18,11 +18,16 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
+
 router.get('/logout', (req, res) => {
-  res.clearCookie('token');
-  req.logout();
-  req.session.destroy();
-  res.redirect('/');
+  req.logout(function(err) {
+    if (err) {
+      console.error(err);
+      return next(err);
+    }
+    res.redirect('/');
+  });
 });
+
 
 module.exports = router;

@@ -7,16 +7,21 @@ import Products from './components/Products.js';
 import Register from './components/Register.js';
 import Login from './components/Login.js';
 import Navbar from './components/Navbar.js';
+import Logout from './components/Logout.js';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = document.cookie.split(';').find(c => c.trim().startsWith('token='));
-    if (token) {
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
+    if (storedIsLoggedIn === 'true') {
       setIsLoggedIn(true);
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('isLoggedIn', isLoggedIn);
+  }, [isLoggedIn]);
 
   return (
     <Router>
@@ -28,6 +33,7 @@ function App() {
         {/* <Route path="/orders" element={<Orders />} /> */}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
       </Routes>
     </Router>
   );
