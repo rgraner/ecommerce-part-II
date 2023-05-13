@@ -27,27 +27,27 @@ const getProductById = (req, res) =>{
   
 
 const createProduct = (req, res) => {
-    const { name, description, price } = req.body;
+    const { name, description, price, image } = req.body;
 
     pool.query(
-   'INSERT INTO products (name, description, price) VALUES ($1, $2, $3) RETURNING id',
-    [name, description, price],
-    (error, results) => {
-        if (error) {
-            throw error;
+        'INSERT INTO products (name, description, price, image) VALUES ($1, $2, $3, $4) RETURNING id',
+        [name, description, price, image],
+        (error, results) => {
+            if (error) {
+                throw error;
+            }
+            res.status(201).send(`Product added with ID: ${results.rows[0].id}`);
         }
-        res.status(201).send(`Product added with ID: ${results.rows[0].id}`);
-    }
     );
 };
 
 const updateProduct = (req, res) => {
     const id = parseInt(req.params.id);
-    const { name, price } = req.body;
+    const { name, description, price, image } = req.body;
 
     pool.query(
-        'UPDATE products SET name = $1, price = $2, updated_at = NOW() WHERE id = $3',
-        [name, price, id],
+        'UPDATE products SET name = $1, description = $2, price = $3, image = $4, updated_at = NOW() WHERE id = $5',
+        [name, description, price, image, id],
         (error, results) => {
             if (error) {
                 throw error
