@@ -25,7 +25,7 @@ function Products() {
         <div key={product.id}>
           <h2>{product.name}</h2>
           <p>{product.description}</p>
-          <img src={product.image} alt={product.name} />
+          <img src={window.atob(product.image)} alt={product.name} />
         </div>
       ))}
     </div>

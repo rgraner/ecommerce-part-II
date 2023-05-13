@@ -6,6 +6,11 @@ const getAllProducts = (req, res) => {
       if (error) {
         throw error;
       }
+      results.rows.forEach(product => {
+        if (product.image !== null) {
+          product.image = product.image.toString('base64');
+        }
+      });
       res.status(200).json(results.rows);
     });
 };
