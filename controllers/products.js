@@ -26,6 +26,10 @@ const getProductById = (req, res) =>{
         if (results.rows.length === 0) {
             return res.status(404).json({ message: 'Product not found' });
         }
+        const product = results.rows[0];
+        if (product.image !== null) {
+        product.image = product.image.toString('base64');
+        }
         res.status(200).json(results.rows[0]);
     });
 };
