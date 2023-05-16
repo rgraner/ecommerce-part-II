@@ -12,6 +12,7 @@ router.post('/login', (req, res, next) => {
     req.login(user, (err) => {
       if (err) { return next(err); }
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET_KEY);
+      console.log('token: ', token)
       res.cookie('token', token);
       return res.status(200).json({ message: 'Login succesfull', user: req.user });
     });
@@ -28,6 +29,28 @@ router.get('/logout', (req, res) => {
     res.redirect('/');
   });
 });
+
+
+router.get('/check', (req, res) => {
+  const token = req.cookies.token; // Get the token from the 'token' cookie
+
+  if (token) {
+    try {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      const userId = decodedToken.userId;
+      res.json({ id: userId });
+    } catch (error) {
+      res.status(401).json({ error: 'Unauthorized' });
+    }
+  } else {
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+});
+
+
+
+
+
 
 
 module.exports = router;

@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 const app = express();
 const port = process.env.PORT;
 
@@ -20,6 +21,7 @@ const authRoute = require('./routes/auth');
 // Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser()); 
 app.use(session({
   secret: 'secret',
   resave: false,
@@ -38,7 +40,7 @@ app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/products', productsRoute);
 app.use('/api/orders', ordersRoute);
-app.use('/api/users/:userId/cart', cartRoute);
+app.use('/api/users', cartRoute);
 
 // Checkout
 app.post('/api/users/:userId/checkout', cartRoute.checkout);

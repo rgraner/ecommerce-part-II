@@ -33,9 +33,6 @@ const getCartItems = async (req, res) => {
 const createCartItem = async (req, res) => {
     const userId = req.params.userId;
     const { productId, quantity } = req.body;
-    console.log('request body: ', req.body);
-    console.log('productId: ', productId);
-    console.log('quantity: ', quantity);
 
     try {
         // check if the user exists
