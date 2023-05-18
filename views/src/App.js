@@ -9,25 +9,31 @@ import Register from './components/Register.js';
 import Login from './components/Login.js';
 import Navbar from './components/Navbar.js';
 import Logout from './components/Logout.js';
+import CartPage from './components/CartPage.js';
 
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState(null);
 
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem('isLoggedIn');
     if (storedIsLoggedIn === 'true') {
       setIsLoggedIn(true);
+      setUserId(localStorage.getItem('userId'));
     }
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('isLoggedIn', isLoggedIn);
-  }, [isLoggedIn]);
+  const handleLogin = (loggedInUserId) => {
+    setIsLoggedIn(true);
+    setUserId(loggedInUserId);
+    localStorage.setItem('isLoggedIn', true);
+    localStorage.setItem('userId', loggedInUserId);
+  };
 
   return (
     <Router>
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar isLoggedIn={isLoggedIn} userId={userId} />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route path="/users" element={<Users />} />
@@ -35,8 +41,9 @@ function App() {
         <Route path="/products/:id" element={<ProductDetails />} />
         {/* <Route path="/orders" element={<Orders />} /> */}
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} onLogin={handleLogin} />} />
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/cart/:userId" element={<CartPage />} />
       </Routes>
     </Router>
   );

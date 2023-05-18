@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Navbar({ isLoggedIn }) {
+
+
+function Navbar({ isLoggedIn, userId }) {
+
   return (
     <nav>
       <ul>
@@ -14,7 +17,7 @@ function Navbar({ isLoggedIn }) {
               <Link to="/products">Products</Link>
             </li>
             <li>
-              <Link to="/cart">Cart</Link>
+             <Link to={`/cart/${userId}`}>Cart</Link>
             </li>
             <li>
               <Link to="/orders">Orders</Link>

@@ -23,7 +23,7 @@ const getCartItems = async (req, res) => {
             return res.status(404).json({ message: 'No Item in the cart' });
         }
         res.status(200).json(cartItem.rows);
-    } catch {
+    } catch (error) {
         console.error(error);
         res.status(500).json({ messsage: 'Internal server error' });
     }

@@ -13,6 +13,8 @@ const Logout = ({ setIsLoggedIn }) => {
         });
         if (response.status === 200) {
           setIsLoggedIn(false);
+          localStorage.setItem('isLoggedIn', false);
+          localStorage.removeItem('userId');
           navigate('/');
         } else {
           // handle error response

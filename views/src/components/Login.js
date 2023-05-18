@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-function Login({ setIsLoggedIn }) {
+function Login({ setIsLoggedIn, onLogin }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -21,8 +21,8 @@ function Login({ setIsLoggedIn }) {
         throw new Error(response.statusText);
       }
       const data = await response.json();
-      console.log(data);
-      setIsLoggedIn(true);
+      console.log('data: ', data);
+      onLogin(data.user.id);
       navigate('/products');
     } catch (error) {
       console.error(error);
