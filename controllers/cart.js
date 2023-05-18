@@ -14,15 +14,16 @@ const getCartItems = async (req, res) => {
             return res.status(404).json({ message: 'User not found' });
         }
 
-        // Get all items in the cart
-        const cartItem = await pool.query(
-            'SELECT * FROM cart WHERE user_id = $1',
-            [userId]
+        // Get all items in the cart with product information
+        const cartItems = await pool.query(
+            'SELECT c.id, c.quantity, p.name, p.price FROM cart c JOIN products p ON c.product_id = p.id WHERE c.user_id = $1',
+        [userId]
         );
-        if (cartItem.rows.length === 0) {
-            return res.status(404).json({ message: 'No Item in the cart' });
+        if (cartItems.rows.length === 0) {
+            return res.status(404).json({ message: 'No item in the cart' });
         }
-        res.status(200).json(cartItem.rows);
+    
+        res.status(200).json(cartItems.rows);
     } catch (error) {
         console.error(error);
         res.status(500).json({ messsage: 'Internal server error' });
