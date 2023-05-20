@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 function Cart() {
   const { userId } = useParams();
   const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState([]);
 
   useEffect(() => {
     // Fetch cart items from the server
@@ -21,6 +22,18 @@ function Cart() {
     }
     fetchCartItems();
   }, [userId]);
+
+  useEffect(() => {
+    // Calculate the total price whenever cart items change
+    const calculateTotalPrice = () => {
+      const totalPrice = cartItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0
+      );
+      setTotalPrice(totalPrice);
+    };
+    calculateTotalPrice();
+  }, [cartItems]);
 
   const handleQuantityChange = async (itemId, newQuantity) => {
     // Update the quantity of the cart item
@@ -69,27 +82,30 @@ function Cart() {
       {cartItems.length === 0 ? (
         <p>No items in the cart</p>
       ) : (
-        <ul>
-          {cartItems.map((item) => (
-            <li key={item.id}>
-              <p>Product: {item.name}</p>
-              <p>Price: ${item.price}</p>
-              <p>
-                Quantity:
-                <input
-                  type="number"
-                  value={item.quantity}
-                  onChange={(e) =>
-                    handleQuantityChange(item.id, e.target.value)
-                  }
-                />
-              </p>
-              <button onClick={() => handleRemoveItem(item.id)}>
-                Remove Item
-              </button>
-            </li>
-          ))}
-        </ul>
+        <div>
+          <ul>
+            {cartItems.map((item) => (
+              <li key={item.id}>
+                <p>Product: {item.name}</p>
+                <p>Price: £{item.price}</p>
+                <p>
+                  Quantity:
+                  <input
+                    type="number"
+                    value={item.quantity}
+                    onChange={(e) =>
+                      handleQuantityChange(item.id, e.target.value)
+                    }
+                  />
+                </p>
+                <button onClick={() => handleRemoveItem(item.id)}>
+                  Remove Item
+                </button>
+              </li>
+            ))}
+          </ul>
+          <p>Total Price: £{totalPrice.toFixed(2)}</p>
+        </div>
       )}
     </div>
   );
