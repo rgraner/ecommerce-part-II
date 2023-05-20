@@ -123,9 +123,9 @@ const updateCartItem = async (req, res) => {
 
 const deleteCartItem = async (req, res) => {
     const userId = req.params.userId;
-    const productId = req.params.itemId;
+    const cartItemId = req.params.itemId;
     console.log('userId: ', userId);
-    console.log('productId: ', productId);
+    console.log('cart item ID: ', cartItemId);
 
     try {
         // Check if the user exists
@@ -139,8 +139,8 @@ const deleteCartItem = async (req, res) => {
 
         // Check if the item is in the cart
         const cartItem = await pool.query(
-            'SELECT * FROM cart WHERE user_id = $1 AND product_id = $2',
-            [userId, productId]
+            'SELECT * FROM cart WHERE user_id = $1 AND id = $2',
+            [userId, cartItemId]
         );
         if (cartItem.rows.length === 0) {
             return res.status(404).json({ message: 'Item not found in cart' });
@@ -148,10 +148,10 @@ const deleteCartItem = async (req, res) => {
 
         // Remove the item from the cart
         await pool.query(
-            'DELETE FROM cart WHERE user_id = $1 AND product_id = $2',
-            [userId, productId]
+            'DELETE FROM cart WHERE user_id = $1 AND id = $2',
+            [userId, cartItemId]
         );
-        res.status(200).send(`Item deleted with ID: ${productId}`);
+        res.status(200).send(`Item deleted with ID: ${cartItemId}`);
 
     } catch (error) {
         console.error(error);
