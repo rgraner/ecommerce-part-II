@@ -15,6 +15,7 @@ const usersRoute = require('./routes/users');
 const productsRoute = require('./routes/products');
 const ordersRoute = require('./routes/orders');
 const cartRoute = require('./routes/cart');
+const checkoutRoute = require('./routes/checkout');
 const authRoute = require('./routes/auth');
 
 
@@ -43,7 +44,7 @@ app.use('/api/orders', ordersRoute);
 app.use('/api/users', cartRoute);
 
 // Checkout
-app.post('/api/users/:userId/checkout', cartRoute.checkout);
+app.use('/api/users', checkoutRoute);
 
 // Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
