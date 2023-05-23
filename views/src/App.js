@@ -10,6 +10,8 @@ import Login from './components/Login.js';
 import Navbar from './components/Navbar.js';
 import Logout from './components/Logout.js';
 import CartPage from './components/CartPage.js';
+import Payment from './components/Payment.js';
+import Completion from './components/Completion.js';
 
 
 function App() {
@@ -44,6 +46,8 @@ function App() {
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} onLogin={handleLogin} />} />
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/cart/:userId" element={<CartPage />} />
+        <Route path="/completion/:userId" element={<Completion />} />
+        {/* <Route path="/payment/:userId" element={<Payment />} /> */}
       </Routes>
     </Router>
   );

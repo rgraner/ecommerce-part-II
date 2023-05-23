@@ -76,6 +76,11 @@ function Cart() {
     }
   };
 
+  // const handleCheckout = () => {
+  //   // Redirect to the checkout page
+  //   navigate(`/payment/${userId}`);
+  // };
+
   return (
     <div>
       <h2>Cart</h2>
@@ -105,6 +110,7 @@ function Cart() {
             ))}
           </ul>
           <p>Total Price: £{totalPrice.toFixed(2)}</p>
+          {/* <button onClick={handleCheckout}>Checkout</button> */}
         </div>
       )}
     </div>

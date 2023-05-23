@@ -17,6 +17,7 @@ const ordersRoute = require('./routes/orders');
 const cartRoute = require('./routes/cart');
 const checkoutRoute = require('./routes/checkout');
 const authRoute = require('./routes/auth');
+const paymentRoute = require('./routes/payment');
 
 
 // Middleware
@@ -45,6 +46,9 @@ app.use('/api/users', cartRoute);
 
 // Checkout
 app.use('/api/users', checkoutRoute);
+
+// Payment
+app.use('/payment', paymentRoute);
 
 // Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
