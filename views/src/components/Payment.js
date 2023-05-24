@@ -11,15 +11,15 @@ function Payment() {
     const [clientSecret, setClientSecret] = useState("");
 
     useEffect(() => {
-        fetch(`/payment/${userId}`).then(async (r) => {
+        fetch(`/api/payment/${userId}`).then(async (r) => {
             const { publishableKey } = await r.json();
             console.log(publishableKey)
             setStripePromise(loadStripe(publishableKey));
         });
-    }, []);
+    }, [userId]);
 
     useEffect(() => {
-        fetch(`/payment/${userId}/create-payment-intent`, {
+        fetch(`/api/payment/${userId}/create-payment-intent`, {
             method: "POST",
             body: JSON.stringify({}),
         }).then(async (result) => {
@@ -27,7 +27,7 @@ function Payment() {
         console.log(clientSecret)
         setClientSecret(clientSecret);
         });
-    }, []);
+    }, [userId]);
 
   return (
     <>

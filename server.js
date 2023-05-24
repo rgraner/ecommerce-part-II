@@ -48,7 +48,7 @@ app.use('/api/users', cartRoute);
 app.use('/api/users', checkoutRoute);
 
 // Payment
-app.use('/payment', paymentRoute);
+app.use('/api/payment', paymentRoute);
 
 // Documentation
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
