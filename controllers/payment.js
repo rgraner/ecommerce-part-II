@@ -7,10 +7,13 @@ const paymentConfig = async (req, res) => {
 };
 
 const createPaymentIntent = async (req, res) => {
+    const { totalPrice } = req.body;
+    const roundedTotalPrice = (totalPrice).toFixed(2) * 100;
+
     try {
         const paymentIntent = await stripe.paymentIntents.create({
             currency: "GBP",
-            amount: 1999,
+            amount: roundedTotalPrice,
             automatic_payment_methods: { enabled: true },
         });
       

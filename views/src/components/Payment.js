@@ -5,7 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import CheckoutForm from "./CheckoutForm";
 import { loadStripe } from "@stripe/stripe-js";
 
-function Payment() {
+function Payment({ totalPrice }) {
     const { userId } = useParams();
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
@@ -21,13 +21,16 @@ function Payment() {
     useEffect(() => {
         fetch(`/api/payment/${userId}/create-payment-intent`, {
             method: "POST",
-            body: JSON.stringify({}),
+            body: JSON.stringify({ totalPrice }),
+            headers: {
+              "Content-Type": "application/json",
+            },
         }).then(async (result) => {
         const { clientSecret } = await result.json();
         console.log(clientSecret)
         setClientSecret(clientSecret);
         });
-    }, [userId]);
+    }, [userId, totalPrice]);
 
   return (
     <>
