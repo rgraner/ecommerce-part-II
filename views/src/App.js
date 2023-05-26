@@ -9,7 +9,7 @@ import Register from './components/Register.js';
 import Login from './components/Login.js';
 import Navbar from './components/Navbar.js';
 import Logout from './components/Logout.js';
-import CartPage from './components/CartPage.js';
+import Cart from './components/Cart.js';
 import Completion from './components/Completion.js';
 
 
@@ -44,7 +44,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} onLogin={handleLogin} />} />
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/cart/:userId" element={<CartPage />} />
+        <Route path="/cart/:userId" element={<Cart />} />
         <Route path="/completion/:userId" element={<Completion />} />
       </Routes>
     </Router>
