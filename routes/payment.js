@@ -5,6 +5,7 @@ const dbPayment = require('../controllers/payment');
 
 router.get('/:userId', dbPayment.paymentConfig);
 router.post('/:userId/create-payment-intent', dbPayment.createPaymentIntent);
+router.post('/webhook', dbPayment.webhook);
 
 
 module.exports = router;
