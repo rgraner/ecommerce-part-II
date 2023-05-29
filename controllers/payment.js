@@ -9,7 +9,9 @@ const paymentConfig = async (req, res) => {
 const createPaymentIntent = async (req, res) => {
     const { totalPrice } = req.body;
     const { userId } = req.params;
-    const roundedTotalPrice = Math.round((totalPrice).toFixed(2) * 100);
+    // const roundedTotalPrice = Math.round((totalPrice).toFixed(2) * 100);
+    const roundedTotalPrice = Math.round((totalPrice) * 100);
+    console.log('roundedTotalPrice: ', roundedTotalPrice);
 
     try {
         const paymentIntent = await stripe.paymentIntents.create({

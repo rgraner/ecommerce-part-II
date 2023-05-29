@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from 'react-router-dom';
-import Payment from './Payment';
+import { useParams,  useNavigate } from 'react-router-dom';
 
 function Cart() {
   const { userId } = useParams();
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState([]);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     // Fetch cart items from the server
@@ -77,6 +78,11 @@ function Cart() {
     }
   };
 
+  const handleCheckout = () => {
+    // Redirect to the PaymentPage with the user ID and total price
+    navigate(`/checkout/${userId}?totalPrice=${totalPrice}`);
+  };
+
   return (
     <div>
       <h2>Cart</h2>
@@ -106,7 +112,7 @@ function Cart() {
             ))}
           </ul>
           <p>Total Price: £{totalPrice.toFixed(2)}</p>
-          <Payment totalPrice={totalPrice} />
+          <button onClick={handleCheckout}>Checkout</button>
         </div>
       )}
     </div>

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './components/Home.js';
-import Users from './components/Users.js';
-import Products from './components/Products.js';
+import Home from './components/Home';
+import Users from './components/Users';
+import Products from './components/Products';
 import ProductDetails from './components/ProductDetails';
 // import Orders from './components/Orders';
-import Register from './components/Register.js';
-import Login from './components/Login.js';
-import Navbar from './components/Navbar.js';
-import Logout from './components/Logout.js';
-import Cart from './components/Cart.js';
-import Completion from './components/Completion.js';
+import Register from './components/Register';
+import Login from './components/Login';
+import Navbar from './components/Navbar';
+import Logout from './components/Logout';
+import Cart from './components/Cart';
+import Checkout from './components/Checkout';
+import Completion from './components/Completion';
 
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} onLogin={handleLogin} />} />
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/cart/:userId" element={<Cart />} />
+        <Route path="/checkout/:userId" element={<Checkout />} />
         <Route path="/completion/:userId" element={<Completion />} />
       </Routes>
     </Router>
