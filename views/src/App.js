@@ -4,7 +4,7 @@ import Home from './components/Home';
 import Users from './components/Users';
 import Products from './components/Products';
 import ProductDetails from './components/ProductDetails';
-// import Orders from './components/Orders';
+import Orders from './components/Orders';
 import Register from './components/Register';
 import Login from './components/Login';
 import Navbar from './components/Navbar';
@@ -41,7 +41,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetails />} />
-        {/* <Route path="/orders" element={<Orders />} /> */}
+        <Route path="/orders/:userId" element={<Orders />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} onLogin={handleLogin} />} />
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />

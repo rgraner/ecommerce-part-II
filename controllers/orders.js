@@ -28,6 +28,49 @@ const getOrderById = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 };
+
+// Get orders with product information by user id
+const getOrdersByUserId = async (req, res) => {
+    const userId = req.params.userId;
+
+    try {
+        const orders = await pool.query('SELECT * FROM orders WHERE user_id = $1', [userId])
+        if (order.rows.length === 0) {
+            res.status(404).json({ message: `Orders with user id ${userId} not found` });
+        }
+        res.json(orders.rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+// Get orders with product information by user id
+const getOrdersWithProductsByUserId = async (req, res) => {
+    const userId = req.params.userId;
+  
+    try {
+      const orders = await pool.query(
+        `SELECT o.id, o.user_id, o.total_price, o.created_at, o.updated_at,
+                p.name, p.description, p.price, p.image
+         FROM orders o
+         JOIN order_products op ON o.id = op.order_id
+         JOIN products p ON op.product_id = p.id
+         WHERE o.user_id = $1
+         ORDER BY o.created_at DESC`,
+        [userId]
+      );
+  
+      if (orders.rows.length === 0) {
+        return res.status(404).json({ message: `Orders with user id ${userId} not found` });
+      }
+  
+      res.json(orders.rows);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  };
     
 // Delete an order
 const deleteOrder = async (req, res) => {
@@ -52,5 +95,7 @@ const deleteOrder = async (req, res) => {
 module.exports = {
     getAllOrders,
     getOrderById,
+    getOrdersByUserId,
+    getOrdersWithProductsByUserId,
     deleteOrder
 }

@@ -20,7 +20,7 @@ function Navbar({ isLoggedIn, userId }) {
              <Link to={`/cart/${userId}`}>Cart</Link>
             </li>
             <li>
-              <Link to="/orders">Orders</Link>
+              <Link to={`/orders/${userId}`}>Orders</Link>
             </li>
             <li>
               <Link to="/logout">Logout</Link>
