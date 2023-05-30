@@ -31,7 +31,7 @@ const getOrderById = async (req, res) => {
 
 // Get orders with product information by user id
 const getOrdersByUserId = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.user.id;
 
     try {
         const orders = await pool.query('SELECT * FROM orders WHERE user_id = $1', [userId])
@@ -47,7 +47,7 @@ const getOrdersByUserId = async (req, res) => {
 
 // Get orders with product information by user id
 const getOrdersWithProductsByUserId = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.user.id;
   
     try {
       const orders = await pool.query(

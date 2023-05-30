@@ -2,7 +2,7 @@ const pool = require('../models/pool')
 
 
 const getCartItems = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.user.id;
 
     try {
         // Check if the user exists
@@ -32,7 +32,7 @@ const getCartItems = async (req, res) => {
   
 
 const createCartItem = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.user.id;
     const { productId, quantity } = req.body;
 
     try {
@@ -83,12 +83,9 @@ const createCartItem = async (req, res) => {
   
 
 const updateCartItem = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.user.id;
     const itemId = req.params.itemId;
     const { quantity } = req.body;
-    console.log('request body: ', req.body);
-    console.log('itemId: ', itemId);
-    console.log('quantity: ', quantity);
 
     try{
         // Check if the user exusts
@@ -122,10 +119,9 @@ const updateCartItem = async (req, res) => {
 };
 
 const deleteCartItem = async (req, res) => {
-    const userId = req.params.userId;
+    const userId = req.user.id;
     const cartItemId = req.params.itemId;
-    console.log('userId: ', userId);
-    console.log('cart item ID: ', cartItemId);
+
 
     try {
         // Check if the user exists

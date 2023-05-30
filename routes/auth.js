@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const router = express.Router();
 const jwt = require('jsonwebtoken');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 
 router.post('/login', (req, res, next) => {
@@ -31,7 +32,7 @@ router.get('/logout', (req, res) => {
 });
 
 
-router.get('/check', (req, res) => {
+router.get('/check', authMiddleware, (req, res) => {
   const token = req.cookies.token; // Get the token from the 'token' cookie
 
   if (token) {
@@ -46,11 +47,6 @@ router.get('/check', (req, res) => {
     res.status(401).json({ error: 'Unauthorized' });
   }
 });
-
-
-
-
-
 
 
 module.exports = router;
