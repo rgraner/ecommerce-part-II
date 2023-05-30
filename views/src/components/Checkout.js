@@ -3,12 +3,12 @@ import Payment from './Payment';
 
 const Checkout = () => {
   const location = useLocation();
-  const totalPrice = new URLSearchParams(location.search).get('totalPrice');
+  const totalPrice = parseFloat(new URLSearchParams(location.search).get('totalPrice'));
   console.log('totalPrice from checkout page:', totalPrice);
 
   return (
     <>
-    <p>Total price: £{totalPrice}</p>
+    <p>Total price: £{totalPrice.toFixed(2)}</p>
       <Payment totalPrice={totalPrice} />
     </>
   );
