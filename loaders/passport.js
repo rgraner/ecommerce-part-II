@@ -18,8 +18,6 @@ passport.use(new LocalStrategy(
         return done(null, false, { message: 'Incorrect username.' });
       }
       const user = rows[0];
-      console.log('hashed: ', user.password);
-      console.log('not hashed: ', password);
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
         return done(null, false, { message: 'Incorrect password.' });

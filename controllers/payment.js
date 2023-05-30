@@ -9,9 +9,7 @@ const paymentConfig = async (req, res) => {
 const createPaymentIntent = async (req, res) => {
     const { totalPrice } = req.body;
     const { userId } = req.params;
-    // const roundedTotalPrice = Math.round((totalPrice).toFixed(2) * 100);
     const roundedTotalPrice = Math.round((totalPrice.toFixed(2)) * 100);
-    console.log('roundedTotalPrice: ', roundedTotalPrice);
 
     try {
         const paymentIntent = await stripe.paymentIntents.create({
@@ -47,7 +45,6 @@ const webhook = async (req, res) => {
             const paymentIntent = event.data.object;
             console.log('PaymentIntent was successful!');
             const userId = paymentIntent.metadata.userId;
-            console.log('userId webhook: ', userId);
             // Trigger the checkout API here
             await fetchCheckoutAPI(req.get('host'), userId);
             break;
@@ -68,8 +65,6 @@ const webhook = async (req, res) => {
 };
 
 const fetchCheckoutAPI = async (baseURL, userId) => {
-    console.log('baseURL: ', baseURL)
-    console.log('userId fetchCheckoutAPI: ', userId)
     // Extract the necessary information from the paymentIntent object
   
     try {

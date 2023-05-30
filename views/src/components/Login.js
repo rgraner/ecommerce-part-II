@@ -21,7 +21,6 @@ function Login({ setIsLoggedIn, onLogin }) {
         throw new Error(response.statusText);
       }
       const data = await response.json();
-      console.log('data: ', data);
       onLogin(data.user.id);
       navigate('/products');
     } catch (error) {

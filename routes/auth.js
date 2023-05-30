@@ -13,7 +13,6 @@ router.post('/login', (req, res, next) => {
     req.login(user, (err) => {
       if (err) { return next(err); }
       const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET_KEY);
-      console.log('token: ', token)
       res.cookie('token', token);
       return res.status(200).json({ message: 'Login succesfull', user: req.user });
     });

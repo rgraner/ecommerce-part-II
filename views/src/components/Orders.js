@@ -13,7 +13,6 @@ function Orders() {
           throw new Error(response.statusText);
         }
         const orders = await response.json();
-        console.log('orders: ', orders);
         setOrders(orders);
       } catch (error) {
         console.error(error);

@@ -10,7 +10,6 @@ const checkout = async (req, res) => {
             'SELECT * FROM cart WHERE user_id = $1',
             [userId]
         );
-        console.log('cartItems: ', cartItems.rows);
         
         let totalPrice = 0;
         for (const item of cartItems.rows) {
@@ -26,7 +25,6 @@ const checkout = async (req, res) => {
             'INSERT INTO orders (user_id, total_price) VALUES ($1, $2) RETURNING *',
             [userId, totalPrice]
         );
-        console.log('newOrder: ', newOrder.rows);
         
         // Add the cart items to the order_products
         cartItems.rows.forEach(async (cartItem) => {

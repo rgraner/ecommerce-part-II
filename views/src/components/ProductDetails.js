@@ -25,7 +25,6 @@ function ProductDetails() {
 
   const handleAddToCart = async () => {
     const isLoggedIn = localStorage.getItem("isLoggedIn");
-    console.log(isLoggedIn)
     if (isLoggedIn === "false") {
       // Redirect to login page with current location as state
       navigate('/login', { state: { from: location } });
@@ -38,7 +37,6 @@ function ProductDetails() {
         throw new Error(response.statusText);
       }
       const user = await response.json();
-      console.log('user: ', user)
       const userId = user.id;
 
       const response2 = await fetch(`/api/cart/user/${userId}`, {

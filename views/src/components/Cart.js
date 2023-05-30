@@ -62,7 +62,6 @@ function Cart() {
 
   const handleRemoveItem = async (itemId) => {
     // Remove the cart item
-    console.log('item id: ', itemId)
     try {
       const response = await fetch(`/api/cart/user/${userId}/item/${itemId}`, {
         method: "DELETE",

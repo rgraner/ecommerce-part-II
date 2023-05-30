@@ -4,7 +4,6 @@ import Payment from './Payment';
 const Checkout = () => {
   const location = useLocation();
   const totalPrice = parseFloat(new URLSearchParams(location.search).get('totalPrice'));
-  console.log('totalPrice from checkout page:', totalPrice);
 
   return (
     <>
