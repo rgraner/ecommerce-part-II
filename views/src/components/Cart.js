@@ -12,7 +12,7 @@ function Cart() {
     // Fetch cart items from the server
     async function fetchCartItems() {
       try {
-        const response = await fetch(`/api/users/${userId}/cart`);
+        const response = await fetch(`/api/cart/user/${userId}`);
         if (!response.ok) {
           throw new Error(response.statusText);
         }
@@ -40,7 +40,7 @@ function Cart() {
   const handleQuantityChange = async (itemId, newQuantity) => {
     // Update the quantity of the cart item
     try {
-      const response = await fetch(`/api/users/${userId}/cart/${itemId}`, {
+      const response = await fetch(`/api/cart/user/${userId}/item/${itemId}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -64,7 +64,7 @@ function Cart() {
     // Remove the cart item
     console.log('item id: ', itemId)
     try {
-      const response = await fetch(`/api/users/${userId}/cart/${itemId}`, {
+      const response = await fetch(`/api/cart/user/${userId}/item/${itemId}`, {
         method: "DELETE",
       });
       if (!response.ok) {

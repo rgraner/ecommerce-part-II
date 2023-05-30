@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 
 function ProductDetails() {
-  const { id: productId } = useParams();
+  const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const location = useLocation();
   const navigate = useNavigate();
@@ -41,7 +41,7 @@ function ProductDetails() {
       console.log('user: ', user)
       const userId = user.id;
 
-      const response2 = await fetch(`/api/users/${userId}/cart`, {
+      const response2 = await fetch(`/api/cart/user/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -42,10 +42,10 @@ app.use('/api/users', usersRoute);
 app.use('/api/auth', authRoute);
 app.use('/api/products', productsRoute);
 app.use('/api/orders', ordersRoute);
-app.use('/api/users', cartRoute);
+app.use('/api/cart', cartRoute);
 
 // Checkout
-app.use('/api/users', checkoutRoute);
+app.use('/api/checkout', checkoutRoute);
 
 // Payment
 app.use('/api/payment', paymentRoute);

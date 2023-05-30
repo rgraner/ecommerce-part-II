@@ -74,7 +74,7 @@ const fetchCheckoutAPI = async (baseURL, userId) => {
   
     try {
       // Make the API request to trigger the checkout
-      const response = await fetch(`http://${baseURL}/api/users/${userId}/checkout`, {
+      const response = await fetch(`http://${baseURL}/api/checkout/user/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

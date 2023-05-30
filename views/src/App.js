@@ -40,7 +40,7 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route path="/users" element={<Users />} />
         <Route path="/products" element={<Products />} />
-        <Route path="/products/:id" element={<ProductDetails />} />
+        <Route path="/products/:productId" element={<ProductDetails />} />
         <Route path="/orders/:userId" element={<Orders />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} onLogin={handleLogin} />} />
